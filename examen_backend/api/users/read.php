@@ -8,7 +8,10 @@ include_once('../../Models/User.php');
 
 $database = new Database();
 $db = $database->connect();
-$params = $_POST["params"];
+$params = "";
+if (isset($_POST["params"])) {
+  $params = $_POST["params"];
+}
 $user = new User($db);
 $res = $user->list($params);
 $num = $res->rowCount();
