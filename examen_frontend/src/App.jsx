@@ -1,77 +1,27 @@
-import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import axios from 'axios';
+import APIUsers from './pages/APIUsers';
+import Home from './pages/Home';
+import Courses from './pages/Courses';
+import Users from './pages/Users';
+import Navbar from './components/shared/Navbar';
 
 import './App.css';
-import Table from './components/Table';
-
-const apiUrl = 'https://weblogin.muninqn.gov.ar/api/Examen';
-
-const getUserNameSurnameAndAge = (razonSocial, fechaNacimiento) => {
-  let userObj = {};
-  const userSurname = razonSocial.substring(0, razonSocial.indexOf(','));
-  const userName = razonSocial.substring(razonSocial.indexOf(',')).substring(2);
-  const userAge = new Date().getFullYear() - fechaNacimiento.substring(0, 4);
-  userObj['nombre'] = userName;
-  userObj['apellido'] = userSurname;
-  userObj['edad'] = userAge;
-  return userObj;
-};
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [search, setSearch] = useState('');
-  const [users, setUsers] = useState(null);
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      let result = null;
-      result = await axios
-        .get(apiUrl)
-        .then((res) => {
-          return res;
-        })
-        .catch((err) => {
-          console.log(err);
-          return;
-        });
-
-      if (result && result.status === 200) {
-        let filteredUsers = result.data.value.map(
-          ({ domicilio, codigoPostal, razonSocial, fechaNacimiento, ...user }) => {
-            const userObj = getUserNameSurnameAndAge(razonSocial, fechaNacimiento);
-            const userDto = { ...user, ...userObj };
-            return userDto;
-          }
-        );
-        setUsers(filteredUsers.slice(0, 10));
-      }
-      setIsLoading(false);
-    };
-
-    fetchUsers();
-  }, []);
-
   return (
     <div>
-      <h2 className="mb-8 border-b-2 border-[#777]">Users Table</h2>
-      {isLoading ? (
-        <p>Loading</p>
-      ) : users ? (
-        <div>
-          <form>
-            <input
-              onChange={(e) => setSearch(e.target.value)}
-              type="text"
-              placeholder="Search user by Surname"
-              className="input input-bordered mb-4"
-            />
-          </form>
-          <Table users={users} search={search} />
+      <Router>
+        <Navbar />
+        <div className="container_xl">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/courses/:modality" element={<Courses />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/api_users" element={<APIUsers />} />
+          </Routes>
         </div>
-      ) : (
-        <p>There are no users registered.</p>
-      )}
+      </Router>
     </div>
   );
 }
