@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import './App.css';
-import DaisyUITable from './components/DaisyUITable';
+import Table from './components/Table';
 
 const apiUrl = 'https://weblogin.muninqn.gov.ar/api/Examen';
 
@@ -20,6 +20,7 @@ const getUserNameSurnameAndAge = (razonSocial, fechaNacimiento) => {
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [search, setSearch] = useState('');
   const [users, setUsers] = useState(null);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function App() {
             return userDto;
           }
         );
-        setUsers(filteredUsers);
+        setUsers(filteredUsers.slice(0, 10));
       }
       setIsLoading(false);
     };
@@ -53,12 +54,21 @@ export default function App() {
 
   return (
     <div>
-      <h2 className="mb-4">Users Table</h2>
-      <div className="divider"></div>
+      <h2 className="mb-8 border-b-2 border-[#777]">Users Table</h2>
       {isLoading ? (
         <p>Loading</p>
       ) : users ? (
-        <DaisyUITable users={users} />
+        <div>
+          <form>
+            <input
+              onChange={(e) => setSearch(e.target.value)}
+              type="text"
+              placeholder="Search user by Surname"
+              className="input input-bordered mb-4"
+            />
+          </form>
+          <Table users={users} search={search} />
+        </div>
       ) : (
         <p>There are no users registered.</p>
       )}
