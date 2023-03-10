@@ -21,17 +21,17 @@ export default function DaisyUITable({ users, search }) {
                 .filter((user) => {
                   return search.toLowerCase() === ''
                     ? user
-                    : user.apellido.toLowerCase().includes(search.toLowerCase());
+                    : user.surname.toLowerCase().includes(search.toLowerCase());
                 })
                 .map((user) => {
                   return (
                     <tr key={user.dni}>
                       <td>{user.id}</td>
-                      <td>{user.nombre}</td>
-                      <td>{user.apellido ? user.apellido : '-'}</td>
+                      <td>{user.name}</td>
+                      <td>{user.surname ? user.surname : '-'}</td>
                       <td>{user.dni}</td>
-                      <td className="hidden lg:table-cell">{user.edad}</td>
-                      <td className="hidden lg:table-cell">{user.genero.value}</td>
+                      <td className="hidden lg:table-cell">{user.age}</td>
+                      <td className="hidden lg:table-cell">{user.gender}</td>
                     </tr>
                   );
                 })}

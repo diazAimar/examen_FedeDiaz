@@ -24,6 +24,7 @@ if ($num > 0) {
     $user_item = array(
       'id' => $id,
       'name' => $name,
+      'surname' => $surname,
       'dni' => $dni,
       'gender' => $gender,
       'age' => $age,
