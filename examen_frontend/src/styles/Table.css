@@ -1,0 +1,16 @@
+.table_container th, td {
+  padding: 1rem 1.5rem;
+  font-weight: bold;
+}
+
+.table_container tr {
+  border-bottom: 2px solid #ccc;
+}
+
+.table_container tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.table_container tr:last-of-type {
+  border-bottom: 2px solid var(--lapis-lazuli)
+}
