@@ -17,6 +17,16 @@ const getUserNameSurnameAndAge = (razonSocial, fechaNacimiento) => {
   return userObj;
 };
 
+const formatUserObj = (userObj) => {
+  userObj['name'] = userObj['nombre'];
+  userObj['surname'] = userObj['apellido'];
+  userObj['gender'] = userObj['genero']['value'];
+  delete userObj['nombre'];
+  delete userObj['apellido'];
+  delete userObj['genero'];
+  return userObj;
+};
+
 export default function APIUsers() {
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -39,7 +49,8 @@ export default function APIUsers() {
         let filteredUsers = result.data.value.map(
           ({ domicilio, codigoPostal, razonSocial, fechaNacimiento, ...user }) => {
             const userObj = getUserNameSurnameAndAge(razonSocial, fechaNacimiento);
-            const userDto = { ...user, ...userObj };
+            let userDto = { ...user, ...userObj };
+            userDto = formatUserObj(userDto);
             return userDto;
           }
         );
