@@ -11,18 +11,14 @@ const getUserNameSurnameAndAge = (razonSocial, fechaNacimiento) => {
   const userSurname = razonSocial.substring(0, razonSocial.indexOf(','));
   const userName = razonSocial.substring(razonSocial.indexOf(',')).substring(2);
   const userAge = new Date().getFullYear() - fechaNacimiento.substring(0, 4);
-  userObj['nombre'] = userName;
-  userObj['apellido'] = userSurname;
-  userObj['edad'] = userAge;
+  userObj['name'] = userName;
+  userObj['surname'] = userSurname;
+  userObj['age'] = userAge;
   return userObj;
 };
 
 const formatUserObj = (userObj) => {
-  userObj['name'] = userObj['nombre'];
-  userObj['surname'] = userObj['apellido'];
   userObj['gender'] = userObj['genero']['value'];
-  delete userObj['nombre'];
-  delete userObj['apellido'];
   delete userObj['genero'];
   return userObj;
 };

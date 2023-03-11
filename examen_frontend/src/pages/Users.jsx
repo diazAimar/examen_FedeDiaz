@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import CreateUserModal from '../components/CreateUserModal';
+
+import { Link } from 'react-router-dom';
 
 import Table from '../components/Table';
 
@@ -23,11 +24,9 @@ export default function Users() {
   return (
     <div className="">
       <div className="mb-8">
-        <label htmlFor="my-modal-3" className="btn capitalize">
+        <Link to="/users/create" className="btn capitalize">
           Create User
-        </label>
-        <CreateUserModal />
-        <div className="btn mx-4 capitalize">Edit User</div>
+        </Link>
       </div>
       {isLoading ? (
         <p>Loading</p>
@@ -41,7 +40,7 @@ export default function Users() {
               className="input input-bordered mb-4"
             />
           </form>
-          <Table users={dbUsers} search={search} />
+          <Table users={dbUsers} search={search} fromdb={true} />
         </div>
       ) : (
         <p>There are no users registered.</p>

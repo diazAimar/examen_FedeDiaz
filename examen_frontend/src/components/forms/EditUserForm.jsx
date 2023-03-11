@@ -7,10 +7,10 @@ import { toast } from 'react-toastify';
 
 import apiInstance from '../../instance';
 
-export default function CreateUserForm() {
+export default function EditUserForm({ user }) {
   const navigate = useNavigate();
 
-  const createUserSchema = Yup.object().shape({
+  const editUserSchema = Yup.object().shape({
     name: Yup.string().trim().max(255, 'Too long!').required('Required'),
     surname: Yup.string().trim().max(255, 'Too long!').required('Required'),
     dni: Yup.number().max(99999999, 'Too long!').required('Required'),
@@ -34,21 +34,22 @@ export default function CreateUserForm() {
     <div className="w-full">
       <Formik
         initialValues={{
-          name: '',
-          surname: '',
-          dni: '',
-          age: '',
-          gender: '',
+          name: user.name,
+          surname: user.surname,
+          dni: user.dni,
+          age: user.age,
+          gender: user.gender,
         }}
-        validationSchema={createUserSchema}
+        validationSchema={editUserSchema}
         onSubmit={async (values, helpers) => {
           const { name, surname, dni, gender, age } = values;
-          const result = await apiInstance.post('/users/create.php', {
+          const result = await apiInstance.post('/users/update.php', {
             name: name,
             surname: surname,
             dni: dni,
             age: age,
             gender: gender,
+            id: user.id,
           });
           /* If statement for react-toastify */
           if (result?.data.error === false) {
@@ -94,8 +95,8 @@ export default function CreateUserForm() {
                 </div>
               );
             })}
-            <button type="submit" className="btn">
-              Submit
+            <button type="submit" className="btn capitalize">
+              Save Changes
             </button>
           </Form>
         )}
