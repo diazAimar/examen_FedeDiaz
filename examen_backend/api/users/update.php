@@ -27,7 +27,7 @@ $user->dni = $data->dni;
 $user->age = $data->age;
 $user->gender = $data->gender;
 
-if ($user->dniExists()) {
+if ($user->dniExists($user->id)) {
   $result["message"] = "DNI already exists.";
 } else {
   if ($user->update()) {

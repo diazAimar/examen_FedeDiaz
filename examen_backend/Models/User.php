@@ -123,9 +123,10 @@ class User
   }
 
   /* Check if dni is already used */
-  public function dniExists()
+  public function dniExists($userId = -1)
   {
-    $select_query = "SELECT dni FROM " . $this->table . " WHERE dni = :dni";
+    $select_query = "SELECT dni FROM " . $this->table . " WHERE dni = :dni ";
+    $userId != -1 ? $select_query .= ' AND id != ' . $userId : '';
     $select_stmt = $this->conn->prepare($select_query);
     $select_stmt->bindParam(':dni', $this->dni);
     $select_stmt->execute();
