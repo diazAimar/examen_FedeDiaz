@@ -1,5 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import APIUsers from './pages/APIUsers';
 import Home from './pages/Home';
 import Courses from './pages/Courses';
@@ -21,6 +24,7 @@ export default function App() {
             <Route path="/api_users" element={<APIUsers />} />
           </Routes>
         </div>
+        <ToastContainer />
       </Router>
     </div>
   );

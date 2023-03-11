@@ -16,9 +16,13 @@ $user = new User($db);
 $res = $user->list($params);
 $num = $res->rowCount();
 
+$users_arr = array(
+  "users" => array(),
+  "error" => true,
+  "message" => "Couldn't list users."
+);
+
 if ($num > 0) {
-  $users_arr = array();
-  $users_arr["data"] = array();
   while ($row = $res->fetch(PDO::FETCH_ASSOC)) {
     extract($row);
     $user_item = array(
@@ -29,11 +33,13 @@ if ($num > 0) {
       'gender' => $gender,
       'age' => $age,
     );
-    array_push($users_arr["data"], $user_item);
+    array_push($users_arr["users"], $user_item);
   }
+  $users_arr["error"] = false;
+  $users_arr["message"] = "User listed successfully.";
   echo json_encode($users_arr);
 } else {
   echo json_encode(
-    array("message" => 'No Users Found')
+    $users_arr
   );
 }

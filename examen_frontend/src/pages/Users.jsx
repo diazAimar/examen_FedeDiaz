@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import CreateUserModal from '../components/CreateUserModal';
 
 import Table from '../components/Table';
 
@@ -13,17 +14,20 @@ export default function Users() {
     const fetchUsers = async () => {
       let result = null;
       result = await apiInstance.get('/users/read.php');
-      setDbUsers(result.data.data);
+      setDbUsers(result.data.users);
       setIsLoading(false);
     };
     fetchUsers();
   }, []);
 
   return (
-    <div>
-      <div className="mb-4">
-        <div className="btn">Create User</div>
-        <div className="btn mx-4">Edit User</div>
+    <div className="">
+      <div className="mb-8">
+        <label htmlFor="my-modal-3" className="btn capitalize">
+          Create User
+        </label>
+        <CreateUserModal />
+        <div className="btn mx-4 capitalize">Edit User</div>
       </div>
       {isLoading ? (
         <p>Loading</p>
