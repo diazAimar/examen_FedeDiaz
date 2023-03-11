@@ -20,35 +20,20 @@ $result = array(
   "message" => "Failed to create user."
 );
 
-$resvalid = validateNameOrSurname($data->name, 'name');
-if ($resvalid['valid'] == false) {
-  $result["message"] = $resvalid["message"];
-  die(json_encode($result));
-}
+$fields = array(
+  'name' => trim($data->name),
+  'surname' => trim($data->surname),
+  'dni' => $data->dni,
+  'age' => $data->age,
+  'gender' => trim($data->gender)
+);
 
-$resvalid = validateNameOrSurname($data->surname, 'surname');
-if ($resvalid['valid'] == false) {
-  $result["message"] = $resvalid["message"];
-  die(json_encode($result));
-}
-
-$resvalid = validateUserDni($data->dni, 'dni');
-if ($resvalid['valid'] == false) {
-  $result["message"] = $resvalid["message"];
-  die(json_encode($result));
-}
-
-$resvalid = validateAge($data->age, 'age');
-if ($resvalid['valid'] == false) {
-  $result["message"] = $resvalid["message"];
-  die(json_encode($result));
-}
-
-
-$resvalid = validateGender($data->gender, 'gender');
-if ($resvalid['valid'] == false) {
-  $result["message"] = $resvalid["message"];
-  die(json_encode($result));
+foreach ($fields as $key => $value) {
+  $resvalid = validateUserInfo($value, $key);
+  if (!$resvalid['valid']) {
+    $result['message'] = $resvalid['message'];
+    die(json_encode($result));
+  }
 }
 
 $user->name = trim($data->name);
