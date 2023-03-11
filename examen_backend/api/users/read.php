@@ -13,7 +13,7 @@ if (isset($_POST["params"])) {
   $params = $_POST["params"];
 }
 $user = new User($db);
-$res = $user->list($params);
+$res = $user->read($params);
 $num = $res->rowCount();
 
 $users_arr = array(
