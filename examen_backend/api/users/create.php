@@ -6,6 +6,7 @@ header('Access-Control-Allow-Methods: POST');
 
 include_once '../../Database.php';
 include_once '../../Models/User.php';
+include_once '../validations/user_validations.php';
 
 $database = new Database();
 $db = $database->connect();
@@ -19,11 +20,42 @@ $result = array(
   "message" => "Failed to create user."
 );
 
-$user->name = $data->name;
-$user->surname = $data->surname;
+$resvalid = validateNameOrSurname($data->name, 'name');
+if ($resvalid['valid'] == false) {
+  $result["message"] = $resvalid["message"];
+  die(json_encode($result));
+}
+
+$resvalid = validateNameOrSurname($data->surname, 'surname');
+if ($resvalid['valid'] == false) {
+  $result["message"] = $resvalid["message"];
+  die(json_encode($result));
+}
+
+$resvalid = validateUserDni($data->dni, 'dni');
+if ($resvalid['valid'] == false) {
+  $result["message"] = $resvalid["message"];
+  die(json_encode($result));
+}
+
+$resvalid = validateAge($data->age, 'age');
+if ($resvalid['valid'] == false) {
+  $result["message"] = $resvalid["message"];
+  die(json_encode($result));
+}
+
+
+$resvalid = validateGender($data->gender, 'gender');
+if ($resvalid['valid'] == false) {
+  $result["message"] = $resvalid["message"];
+  die(json_encode($result));
+}
+
+$user->name = trim($data->name);
+$user->surname = trim($data->surname);
 $user->dni = $data->dni;
 $user->age = $data->age;
-$user->gender = $data->gender;
+$user->gender = trim($data->gender);
 
 if ($user->dniExists()) {
   $result = [
@@ -40,4 +72,4 @@ if ($user->dniExists()) {
     ];
   }
 }
-echo json_encode($result);
+die(json_encode($result));
