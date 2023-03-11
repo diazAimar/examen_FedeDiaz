@@ -32,4 +32,36 @@ class User
     $stmt->execute();
     return $stmt;
   }
+
+  public function dniExists()
+  {
+    $select_query = "SELECT dni FROM " . $this->table . " WHERE dni = :dni";
+    $select_stmt = $this->conn->prepare($select_query);
+    $select_stmt->bindParam(':dni', $this->dni);
+    $select_stmt->execute();
+
+    if ($select_stmt->rowCount() > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  public function create()
+  {
+    $insert_query = "INSERT INTO " . $this->table . ' SET name = :name, surname = :surname, dni = :dni, age = :age, gender = :gender';
+
+    $insert_stmt = $this->conn->prepare($insert_query);
+
+    $insert_stmt->bindParam(':name', $this->name);
+    $insert_stmt->bindParam(':surname', $this->surname);
+    $insert_stmt->bindParam(':dni', $this->dni);
+    $insert_stmt->bindParam(':age', $this->age);
+    $insert_stmt->bindParam(':gender', $this->gender);
+
+    if ($insert_stmt->execute()) {
+      return true;
+    }
+
+    return false;
+  }
 }
