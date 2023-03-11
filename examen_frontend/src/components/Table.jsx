@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import '../styles/Table.css';
 
-export default function DaisyUITable({ users, search }) {
+export default function DaisyUITable({ users, search, fromdb = false }) {
   return (
     <div className="h-[680px]">
       <div className="table_container">
@@ -13,6 +14,8 @@ export default function DaisyUITable({ users, search }) {
               <th>DNI</th>
               <th className="hidden lg:table-cell py-[1rem] px-[1.5rem]">Age</th>
               <th className="hidden lg:table-cell">Gender</th>
+              <th className={fromdb ? 'table-cell' : 'hidden'}>Edit</th>
+              <th className={fromdb ? 'table-cell' : 'hidden'}>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -32,6 +35,12 @@ export default function DaisyUITable({ users, search }) {
                       <td>{user.dni}</td>
                       <td className="hidden lg:table-cell">{user.age}</td>
                       <td className="hidden lg:table-cell">{user.gender}</td>
+                      <td className={fromdb ? 'table-cell' : 'hidden'}>
+                        <Link to={`/users/edit/${user.id}`}>📝</Link>
+                      </td>
+                      <td className={fromdb ? 'table-cell' : 'hidden'}>
+                        <Link to={`/users/delete/${user.id}`}>❌</Link>
+                      </td>
                     </tr>
                   );
                 })}
