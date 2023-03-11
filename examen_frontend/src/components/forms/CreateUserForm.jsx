@@ -1,9 +1,15 @@
+import { useNavigate } from 'react-router-dom';
+
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
+
 import { toast } from 'react-toastify';
+
 import apiInstance from '../../instance';
 
 export default function CreateUserForm() {
+  const navigate = useNavigate();
+
   const createUserSchema = Yup.object().shape({
     name: Yup.string().trim().max(255, 'Too long!').required('Required'),
     surname: Yup.string().trim().max(255, 'Too long!').required('Required'),
@@ -25,7 +31,7 @@ export default function CreateUserForm() {
   ];
 
   return (
-    <div>
+    <div className="w-full">
       <Formik
         initialValues={{
           name: '',
@@ -46,14 +52,17 @@ export default function CreateUserForm() {
           });
           /* If statement for react-toastify */
           if (result?.data.error === false) {
-            console.log(result.data.message);
+            toast.success(result.data.message + ' Navigating to dashboard.');
+            setTimeout(() => {
+              navigate('/users');
+            }, 1500);
           } else if (result?.data.error === true) {
-            console.log(result.data.message);
+            toast.error(result.data.message);
           }
         }}
       >
         {({ errors, touched }) => (
-          <Form className="flex flex-col w-1/3 items-start gap-y-4">
+          <Form className="flex flex-col w-1/3 mx-auto gap-y-4">
             {inputsArray.map((input, i) => {
               return (
                 <div key={input.name + i}>
@@ -85,7 +94,6 @@ export default function CreateUserForm() {
                 </div>
               );
             })}
-
             <button type="submit" className="btn">
               Submit
             </button>
