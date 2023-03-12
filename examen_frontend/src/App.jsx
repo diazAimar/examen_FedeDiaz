@@ -7,9 +7,9 @@ import APIUsers from './pages/APIUsers';
 import Home from './pages/Home';
 import Courses from './pages/Courses';
 import Users from './pages/Users';
-import CreateUser from './pages/CreateUser';
-import EditUser from './pages/EditUser';
-import DeleteUser from './pages/DeleteUser';
+import CreateUser from './pages/users/CreateUser';
+import EditUser from './pages/users/EditUser';
+import DeleteUser from './pages/users/DeleteUser';
 
 import Navbar from './components/shared/Navbar';
 

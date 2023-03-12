@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 
 import { useParams, useNavigate } from 'react-router-dom';
 
-import EditUserForm from '../components/forms/EditUserForm';
+import EditUserForm from '../../components/forms/EditUserForm';
 
-import apiInstance from '../instance';
+import apiInstance from '../../instance';
 
 export default function EditUser() {
   const [isLoading, setIsLoading] = useState(true);
