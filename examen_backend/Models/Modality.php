@@ -29,4 +29,24 @@ class Modality
 
     return $stmt;
   }
+
+  /* Read single modality by id */
+  public function readSingleById()
+  {
+    $select_query = "SELECT * FROM " . $this->table . " WHERE id = :id";
+    $select_stmt = $this->conn->prepare($select_query);
+    $select_stmt->bindParam(':id', $this->id);
+    $select_stmt->execute();
+
+    $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$row) {
+      return false;
+    }
+    $this->description = $row['description'];
+
+    if ($select_stmt->rowCount() > 0) {
+      return true;
+    }
+    return false;
+  }
 }
