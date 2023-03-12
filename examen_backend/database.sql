@@ -22,8 +22,7 @@ CREATE TABLE IF NOT EXISTS `modalities` (
 
 INSERT INTO `modalities` (`description`) VALUES
   ('Group Course.'),
-  ('Individual Course'),
-  ('Hybrid Course');
+  ('Individual Course');
 
 -- --------------------------------------------------------
 
@@ -33,7 +32,7 @@ INSERT INTO `modalities` (`description`) VALUES
 
 CREATE TABLE IF NOT EXISTS `courses` (
 	`id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-	`legajo` VARCHAR(100) NOT NULL,
+	`legajo` VARCHAR(100) NOT NULL UNIQUE,
 	`name` VARCHAR(100) NOT NULL,
 	`description` VARCHAR(200) NOT NULL,
   `modality_id`  INT NOT NULL,
@@ -47,12 +46,12 @@ CREATE TABLE IF NOT EXISTS `courses` (
 --
 
 INSERT INTO `courses` (`legajo`, `name`, `description`, `modality_id`) VALUES
-  ('FAI-4920', 'Modern React with Redux [2023 Update]', 'Master React and Redux Toolkit. Includes RTK Query, tons of custom hooks, and more! Course 100% Updated November 2022', 1),
-  ('FAI-2418', 'React - The Complete Guide (incl Hooks, React Router, Redux)', 'Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!', 1),
-  ('FAI-142', '100 Days of Code: The Complete Python Pro Bootcamp for 2023', 'Master Python by building 100 projects in 100 days. Learn data science, automation, build websites, games and apps!', 2),
-  ('FAI-2635', 'Complete Python Developer in 2023: Zero to Mastery', 'How to become a Python 3 Developer and get hired! Build 12+ projects, learn Web Development, Machine Learning + more!', 3),
-  ('FAI-643', 'Complete C# Masterclass', 'Learn C# Programming - WPF, Databases, Linq, Collections, Game Development with Unity. More than just the C# basics!', 2),
-  ('FAI-725', 'C# 10 | Ultimate Guide - Beginner to Advanced | Master class', 'Learn C# by doing | C# projects | Bootcamp for C# Interview | Advanced C# | Collections | LINQ | Interview Questions', 1);
+  ('4920', 'Modern React with Redux [2023 Update]', 'Master React and Redux Toolkit. Includes RTK Query, tons of custom hooks, and more! Course 100% Updated November 2022', 1),
+  ('2418', 'React - The Complete Guide (incl Hooks, React Router, Redux)', 'Dive in and learn React.js from scratch! Learn Reactjs, Hooks, Redux, React Routing, Animations, Next.js and way more!', 1),
+  ('142', '100 Days of Code: The Complete Python Pro Bootcamp for 2023', 'Master Python by building 100 projects in 100 days. Learn data science, automation, build websites, games and apps!', 1),
+  ('2635', 'Complete Python Developer in 2023: Zero to Mastery', 'How to become a Python 3 Developer and get hired! Build 12+ projects, learn Web Development, Machine Learning + more!', 2),
+  ('643', 'Complete C# Masterclass', 'Learn C# Programming - WPF, Databases, Linq, Collections, Game Development with Unity. More than just the C# basics!', 2),
+  ('725', 'C# 10 | Ultimate Guide - Beginner to Advanced | Master class', 'Learn C# by doing | C# projects | Bootcamp for C# Interview | Advanced C# | Collections | LINQ | Interview Questions', 2);
 
 -- --------------------------------------------------------
 
