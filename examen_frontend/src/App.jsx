@@ -5,12 +5,16 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import APIUsers from './pages/APIUsers';
 import Home from './pages/Home';
-import Courses from './pages/Courses';
-import Users from './pages/Users';
-import CreateUser from './pages/CreateUser';
-import EditUser from './pages/EditUser';
-import DeleteUser from './pages/DeleteUser';
 
+import Users from './pages/Users';
+import CreateUser from './pages/users/CreateUser';
+import EditUser from './pages/users/EditUser';
+import DeleteUser from './pages/users/DeleteUser';
+
+import Courses from './pages/Courses';
+import CreateCourse from './pages/courses/CreateCourse';
+import EditCourse from './pages/courses/EditCourse';
+import DeleteCourse from './pages/courses/DeleteCourse';
 import Navbar from './components/shared/Navbar';
 
 import './App.css';
@@ -23,12 +27,15 @@ export default function App() {
         <div className="container_xl">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/courses/:modality" element={<Courses />} />
+            <Route path="/api_users" element={<APIUsers />} />
             <Route path="/users" element={<Users />} />
             <Route path="/users/create" element={<CreateUser />} />
             <Route path="/users/edit/:uid" element={<EditUser />} />
             <Route path="/users/Delete/:uid" element={<DeleteUser />} />
-            <Route path="/api_users" element={<APIUsers />} />
+            <Route path="/courses/" element={<Courses />} />
+            <Route path="/courses/create" element={<CreateCourse />} />
+            <Route path="/courses/edit/:cid" element={<EditCourse />} />
+            <Route path="/courses/delete/:cid" element={<DeleteCourse />} />
           </Routes>
         </div>
         <ToastContainer

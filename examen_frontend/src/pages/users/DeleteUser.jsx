@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import { toast } from 'react-toastify';
 
-import apiInstance from '../instance';
+import apiInstance from '../../instance';
 
 export default function DeleteUser() {
   const [user, setUser] = useState(null);

@@ -16,3 +16,10 @@ export const userSchema = Yup.object().shape({
     .max(199, 'Must be between 1 and 199')
     .required('Required'),
 });
+
+export const courseSchema = Yup.object().shape({
+  legajo: Yup.string().trim().max(100, 'Too long!').required('Required'),
+  name: Yup.string().trim().max(100, 'Too long!').required('Required'),
+  description: Yup.string().trim().max(200, 'Too long!').required('Required'),
+  modality_id: Yup.number().min(1, 'Please choose a modality').required('Required'),
+});
