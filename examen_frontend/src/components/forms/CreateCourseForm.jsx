@@ -41,7 +41,22 @@ export default function CreateCourseForm() {
     },
     validationSchema: courseSchema,
     onSubmit: async (values) => {
-      console.log(values);
+      const { legajo, name, description, modality_id } = values;
+      const result = await apiInstance.post('/courses/create.php', {
+        legajo: legajo,
+        name: name,
+        description: description,
+        modality_id: modality_id,
+      });
+      /* If statement for react-toastify */
+      if (result?.data.error === false) {
+        toast.success(result.data.message + ' Navigating to dashboard.');
+        setTimeout(() => {
+          navigate('/courses');
+        }, 1500);
+      } else if (result?.data.error === true) {
+        toast.error(result.data.message);
+      }
     },
   });
 
