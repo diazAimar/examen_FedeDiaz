@@ -9,18 +9,21 @@ export default function Navbar() {
             Home
           </Link>
         </div>
-        <div>
+        <div className="flex gap-x-4">
           <Link
             to="/courses"
             className="btn bg-primary-black hover:bg-slate-600 border-0 capitalize"
           >
             Courses
           </Link>
-          <Link
-            to="/users"
-            className="btn bg-primary-black hover:bg-slate-600 border-0 capitalize mx-4"
-          >
+          <Link to="/users" className="btn bg-primary-black hover:bg-slate-600 border-0 capitalize">
             Users
+          </Link>
+          <Link
+            to="/inscriptions"
+            className="btn bg-primary-black hover:bg-slate-600 border-0 capitalize"
+          >
+            Inscriptions
           </Link>
           <Link
             to="/api_users"
