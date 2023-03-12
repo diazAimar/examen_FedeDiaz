@@ -19,7 +19,6 @@ export default function CreateCourseForm() {
     const fetchModalities = async () => {
       let result = null;
       result = await apiInstance.get('/modalities/read.php');
-      console.log(result);
       setModalities(result.data.modalities);
       setIsLoading(false);
     };

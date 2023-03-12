@@ -62,4 +62,34 @@ class Course
 
     return false;
   }
+
+  /* Check if legajo is already used */
+  public function legajoExists($legajo = '')
+  {
+    $select_query = 'SELECT legajo FROM ' . $this->table . ' WHERE legajo = :legajo ';
+    $legajo != '' ? $select_query .= ' AND id != ' . $legajo : '';
+    $select_stmt = $this->conn->prepare($select_query);
+    $select_stmt->bindParam(':legajo', $this->legajo);
+    $select_stmt->execute();
+
+    if ($select_stmt->rowCount() > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  /* Check if name is already used */
+  public function nameExists($name = '')
+  {
+    $select_query = 'SELECT name FROM ' . $this->table . ' WHERE name = :name ';
+    $name != '' ? $select_query .= ' AND id != ' . $name : '';
+    $select_stmt = $this->conn->prepare($select_query);
+    $select_stmt->bindParam(':name', $this->name);
+    $select_stmt->execute();
+
+    if ($select_stmt->rowCount() > 0) {
+      return true;
+    }
+    return false;
+  }
 }
