@@ -5,6 +5,7 @@ header('Content-Type: application/json');
 
 include_once('../../Database.php');
 include_once('../../Models/User.php');
+include_once('../validations/user_validations.php');
 
 $database = new Database();
 $db = $database->connect();
@@ -17,7 +18,15 @@ $result = array(
   "message" => "Failed to fetch user."
 );
 
+
 $user->id = isset($_GET['uid']) ? $_GET['uid'] : die();
+
+$resvalid = validateUserInfo($user->id, "id");
+if (!$resvalid['valid']) {
+  $result['message'] = $resvalid['message'];
+  die(json_encode($result));
+}
+
 if ($user->readSingleById()) {
   $userArr = array(
     'id' => $user->id,
