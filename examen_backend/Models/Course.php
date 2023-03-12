@@ -43,4 +43,23 @@ class Course
 
     return $stmt;
   }
+
+  /* Create course */
+  public function create()
+  {
+    $insert_query = 'INSERT INTO ' . $this->table . ' SET legajo = :legajo, name = :name, description = :description, modality_id = :modality_id';
+
+
+    $insert_stmt = $this->conn->prepare($insert_query);
+
+    $insert_stmt->bindParam(':legajo', $this->legajo);
+    $insert_stmt->bindParam(':name', $this->name);
+    $insert_stmt->bindParam(':description', $this->description);
+    $insert_stmt->bindParam(':modality_id', $this->modality_id);
+    if ($insert_stmt->execute()) {
+      return true;
+    }
+
+    return false;
+  }
 }
