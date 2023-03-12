@@ -6,12 +6,14 @@ header('Access-Control-Allow-Methods: POST');
 
 include_once '../../Database.php';
 include_once '../../Models/Course.php';
+include_once '../../Models/Modality.php';
 include_once '../validations/course_validations.php';
 
 $database = new Database();
 $db = $database->connect();
 
 $course = new Course($db);
+$modality = new Modality($db);
 $data = json_decode(file_get_contents("php://input"));
 
 $result = array(
@@ -20,16 +22,41 @@ $result = array(
   "message" => "Failed to create course."
 );
 
+$fields = array(
+  'legajo' => trim($data->legajo),
+  'name' => trim($data->name),
+  'description' => trim($data->description),
+  'modality_id' => $data->modality_id
+);
+
+foreach ($fields as $key => $value) {
+  $resvalid = validateCourseInfo($value, $key);
+  if (!$resvalid['valid']) {
+    $result['message'] = $resvalid['message'];
+    die(json_encode($result));
+  }
+}
+
 $course->legajo = trim($data->legajo);
 $course->name = trim($data->name);
 $course->description = trim($data->description);
 $course->modality_id = $data->modality_id;
 
-if ($course->create()) {
-  $result = [
-    "course" => $course,
-    "error" => false,
-    "message" => "Created course."
-  ];
+$modality->id = $data->modality_id;
+if ($course->legajoExists()) {
+  $result["message"] = "Legajo already exists.";
+} else if ($course->nameExists()) {
+  $result["message"] = "Name already exists.";
+} else if (!$modality->readSingleById()) {
+  $result["message"] = "Modality does not exists.";
+} else {
+  if ($course->create()) {
+    $result = [
+      "course" => $course,
+      "error" => false,
+      "message" => "Created course."
+    ];
+  }
 }
+
 die(json_encode($result));
