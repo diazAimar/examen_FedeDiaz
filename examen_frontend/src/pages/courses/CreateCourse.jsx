@@ -1,5 +1,10 @@
-import React from 'react';
+import CreateCourseForm from '../../components/forms/CreateCourseForm';
 
 export default function CreateCourse() {
-  return <div>CreateCourse</div>;
+  return (
+    <div className="">
+      <h2 className="mb-4 text-center">Create Course</h2>
+      <CreateCourseForm />
+    </div>
+  );
 }
