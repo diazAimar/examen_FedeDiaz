@@ -44,6 +44,30 @@ class Course
     return $stmt;
   }
 
+  /* Read single course by id */
+  public function readSingleById()
+  {
+    $select_query = "SELECT * FROM " . $this->table . " WHERE id = :id";
+    $select_stmt = $this->conn->prepare($select_query);
+    $select_stmt->bindParam(':id', $this->id);
+    $select_stmt->execute();
+
+    $row = $select_stmt->fetch(PDO::FETCH_ASSOC);
+    if (!$row) {
+      return false;
+    }
+    $this->legajo = $row['legajo'];
+    $this->name = $row['name'];
+    $this->description = $row['description'];
+    $this->modality_id = $row['modality_id'];
+
+    if ($select_stmt->rowCount() > 0) {
+      return true;
+    }
+    return false;
+  }
+
+
   /* Create course */
   public function create()
   {
@@ -63,15 +87,56 @@ class Course
     return false;
   }
 
-  /* Check if legajo is already used */
-  public function legajoExists($legajo = '')
+  /* Update course */
+  public function update()
   {
-    $select_query = 'SELECT legajo FROM ' . $this->table . ' WHERE legajo = :legajo ';
-    $legajo != '' ? $select_query .= ' AND id != ' . $legajo : '';
+    $update_query = 'UPDATE ' . $this->table . ' 
+    SET 
+      legajo = :legajo,
+      name = :name,
+      description = :description,
+      modality_id = :modality_id
+    WHERE
+      id = :id ';
+
+    $update_stmt = $this->conn->prepare($update_query);
+    $update_stmt->bindParam(':legajo', $this->legajo);
+    $update_stmt->bindParam(':name', $this->name);
+    $update_stmt->bindParam(':description', $this->description);
+    $update_stmt->bindParam(':modality_id', $this->modality_id);
+    $update_stmt->bindParam(':id', $this->id);
+
+    if ($update_stmt->execute()) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /* Delete course */
+  public function delete()
+  {
+    $delete_query = "DELETE FROM " . $this->table . ' WHERE id=:id';
+
+    $delete_stmt = $this->conn->prepare($delete_query);
+    $delete_stmt->bindParam(':id', $this->id);
+
+    if ($delete_stmt->execute()) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /* Check if legajo is already used */
+  public function legajoExists($course_id = -1)
+  {
+    $select_query = "SELECT legajo FROM " . $this->table . " WHERE legajo = :legajo ";
+    $course_id != -1 ? $select_query .= ' AND id != ' . $course_id : '';
     $select_stmt = $this->conn->prepare($select_query);
     $select_stmt->bindParam(':legajo', $this->legajo);
     $select_stmt->execute();
-
+    // echo ($select_stmt->rowCount());
     if ($select_stmt->rowCount() > 0) {
       return true;
     }
@@ -79,10 +144,10 @@ class Course
   }
 
   /* Check if name is already used */
-  public function nameExists($name = '')
+  public function nameExists($course_id = -1)
   {
     $select_query = 'SELECT name FROM ' . $this->table . ' WHERE name = :name ';
-    $name != '' ? $select_query .= ' AND id != ' . $name : '';
+    $course_id != '' ? $select_query .= ' AND id != ' . $course_id : '';
     $select_stmt = $this->conn->prepare($select_query);
     $select_stmt->bindParam(':name', $this->name);
     $select_stmt->execute();

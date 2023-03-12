@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `modalities` (
 INSERT INTO
   `modalities` (`description`)
 VALUES
-  ('Group Course.'),
+  ('Group Course'),
   ('Individual Course');
 
 -- --------------------------------------------------------
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `courses` (
   `modality_id` INT NOT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (`modality_id`) REFERENCES modalities(id)
+  FOREIGN KEY (`modality_id`) REFERENCES modalities(id) ON DELETE CASCADE
 );
 
 --
@@ -124,8 +124,8 @@ CREATE TABLE IF NOT EXISTS `inscriptions` (
   `user_id` INT NOT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (`course_id`) REFERENCES courses(id),
-  FOREIGN KEY (`user_id`) REFERENCES users(id)
+  FOREIGN KEY (`course_id`) REFERENCES courses(id) ON DELETE CASCADE,
+  FOREIGN KEY (`user_id`) REFERENCES users(id) ON DELETE CASCADE
 );
 
 --
