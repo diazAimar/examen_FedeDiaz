@@ -6,6 +6,7 @@ header('Access-Control-Allow-Methods: DELETE');
 
 include_once '../../Database.php';
 include_once '../../Models/User.php';
+include_once '../validations/user_validations.php';
 
 $database = new Database();
 $db = $database->connect();
@@ -19,6 +20,13 @@ $result = [
   "error" => true,
   "message" => "Failed to delete user."
 ];
+
+$resvalid = validateUserInfo($user->id, "id");
+if (!$resvalid['valid']) {
+  $result['message'] = $resvalid['message'];
+  die(json_encode($result));
+}
+
 if ($user->id && $user->readSingleById()) {
   if ($user->id && $user->delete()) {
     $result = [

@@ -20,7 +20,6 @@ export default function EditUser() {
         setUser(result.data.user);
         setIsLoading(false);
       } else {
-        console.log(result.data.message);
         navigate('/users');
       }
     };

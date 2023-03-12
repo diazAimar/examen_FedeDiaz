@@ -1,32 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 
-import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 
 import { toast } from 'react-toastify';
 
 import apiInstance from '../../instance';
 
+import { userSchema } from '../../utils/yupSchemas.js';
+
 export default function CreateUserForm() {
   const navigate = useNavigate();
-
-  const createUserSchema = Yup.object().shape({
-    name: Yup.string().trim().max(255, 'Too long!').required('Required'),
-    surname: Yup.string().trim().max(255, 'Too long!').required('Required'),
-    dni: Yup.number()
-      .min(1, 'Must be between 1 and 99999999')
-      .max(99999999, 'Must be between 1 and 99999999')
-      .required('Required'),
-    gender: Yup.string()
-      .trim()
-      .max(1, 'Too long!')
-      .matches(/^[FM]$/, 'Must be F (Female) or M (Male)')
-      .required('Required'),
-    age: Yup.number()
-      .min(1, 'Must be between 1 and 199')
-      .max(199, 'Must be between 1 and 199')
-      .required('Required'),
-  });
 
   const inputsArray = [
     { name: 'name', type: 'text' },
@@ -46,7 +29,7 @@ export default function CreateUserForm() {
           age: '',
           gender: '',
         }}
-        validationSchema={createUserSchema}
+        validationSchema={userSchema}
         onSubmit={async (values, helpers) => {
           const { name, surname, dni, gender, age } = values;
           const result = await apiInstance.post('/users/create.php', {

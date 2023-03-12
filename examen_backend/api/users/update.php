@@ -6,6 +6,7 @@ header('Access-Control-Allow-Methods: PUT');
 
 include_once '../../Database.php';
 include_once '../../Models/User.php';
+include_once '../validations/user_validations.php';
 
 $database = new Database();
 $db = $database->connect();
@@ -21,13 +22,29 @@ $result = array(
   "message" => "Failed to create user."
 );
 
+$fields = array(
+  'name' => trim($data->name),
+  'surname' => trim($data->surname),
+  'dni' => $data->dni,
+  'age' => $data->age,
+  'gender' => trim($data->gender)
+);
+
+foreach ($fields as $key => $value) {
+  $resvalid = validateUserInfo($value, $key);
+  if (!$resvalid['valid']) {
+    $result['message'] = $resvalid['message'];
+    die(json_encode($result));
+  }
+}
+
 $user->name = $data->name;
 $user->surname = $data->surname;
 $user->dni = $data->dni;
 $user->age = $data->age;
 $user->gender = $data->gender;
 
-if ($user->dniExists()) {
+if ($user->dniExists($user->id)) {
   $result["message"] = "DNI already exists.";
 } else {
   if ($user->update()) {

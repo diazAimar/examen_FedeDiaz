@@ -1,26 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 
-import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 
 import { toast } from 'react-toastify';
 
 import apiInstance from '../../instance';
 
+import { userSchema } from '../../utils/yupSchemas.js';
+
 export default function EditUserForm({ user }) {
   const navigate = useNavigate();
-
-  const editUserSchema = Yup.object().shape({
-    name: Yup.string().trim().max(255, 'Too long!').required('Required'),
-    surname: Yup.string().trim().max(255, 'Too long!').required('Required'),
-    dni: Yup.number().max(99999999, 'Too long!').required('Required'),
-    gender: Yup.string()
-      .trim()
-      .max(1, 'Too long!')
-      .matches(/^[FM]$/, 'Must be F (Female) or M (Male)')
-      .required('Required'),
-    age: Yup.number().max(199, 'Too long!').required('Required'),
-  });
 
   const inputsArray = [
     { name: 'name', type: 'text' },
@@ -40,7 +29,7 @@ export default function EditUserForm({ user }) {
           age: user.age,
           gender: user.gender,
         }}
-        validationSchema={editUserSchema}
+        validationSchema={userSchema}
         onSubmit={async (values, helpers) => {
           const { name, surname, dni, gender, age } = values;
           const result = await apiInstance.post('/users/update.php', {

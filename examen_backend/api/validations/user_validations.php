@@ -35,6 +35,11 @@ function validateUserInfo($value, $fieldName)
           return $res;
         }
         break;
+      case "id":
+        if (!is_numeric($value) || $value < 1) {
+          $res["message"] = ucfirst($fieldName) . " must be a number greater than 1";
+          return $res;
+        }
     }
   }
   $res["valid"] = true;

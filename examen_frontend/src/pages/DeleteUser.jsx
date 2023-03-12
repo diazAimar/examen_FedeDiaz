@@ -38,6 +38,7 @@ export default function DeleteUser() {
         },
       }
     );
+    console.log(result);
     if (result?.data.error === false) {
       toast.success(result.data.message + ' Navigating to dashboard.');
       setTimeout(() => {
