@@ -29,6 +29,8 @@ if ($num > 0) {
       'user_id' => $user_id,
       'user_name' => $user_name,
       'user_surname' => $user_surname,
+      'user_gender' => $user_gender,
+      'user_age' => $user_age,
       'course_id' => $course_id,
       'course_name' => $course_name,
       'course_legajo' => $course_legajo,

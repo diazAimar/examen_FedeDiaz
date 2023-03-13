@@ -9,6 +9,8 @@ class Inscription
   public $user_id;
   public $user_name;
   public $user_surname;
+  public $user_gender;
+  public $user_age;
   public $course_id;
   public $course_name;
   public $course_legajo;
@@ -29,6 +31,8 @@ class Inscription
                       i.user_id, 
                       u.name as user_name,
                       u.surname as user_surname,
+                      u.gender as user_gender,
+                      u.age as user_age,
                       i.course_id, 
                       c.name as course_name,
                       c.legajo as course_legajo,
