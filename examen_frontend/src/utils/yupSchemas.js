@@ -23,3 +23,8 @@ export const courseSchema = Yup.object().shape({
   description: Yup.string().trim().max(200, 'Too long!').required('Required'),
   modality_id: Yup.number().min(1, 'Please choose a modality').required('Required'),
 });
+
+export const inscriptionSchema = Yup.object().shape({
+  user_id: Yup.number().min(1, 'Please choose a user').required('Required'),
+  course_id: Yup.number().min(1, 'Please choose a course').required('Required'),
+});

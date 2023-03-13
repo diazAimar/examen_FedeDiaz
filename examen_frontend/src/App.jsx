@@ -15,6 +15,10 @@ import Courses from './pages/Courses';
 import CreateCourse from './pages/courses/CreateCourse';
 import EditCourse from './pages/courses/EditCourse';
 import DeleteCourse from './pages/courses/DeleteCourse';
+
+import Inscriptions from './pages/Inscriptions';
+import CreateInscription from './pages/inscriptions/CreateInscription';
+
 import Navbar from './components/shared/Navbar';
 
 import './App.css';
@@ -36,6 +40,9 @@ export default function App() {
             <Route path="/courses/create" element={<CreateCourse />} />
             <Route path="/courses/edit/:cid" element={<EditCourse />} />
             <Route path="/courses/delete/:cid" element={<DeleteCourse />} />
+            <Route path="/inscriptions/" element={<Inscriptions />} />
+            <Route path="/inscriptions/create" element={<CreateInscription />} />
+            <Route path="/inscriptions/delete/:cid" element={<DeleteCourse />} />
           </Routes>
         </div>
         <ToastContainer
