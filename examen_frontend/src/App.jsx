@@ -18,6 +18,7 @@ import DeleteCourse from './pages/courses/DeleteCourse';
 
 import Inscriptions from './pages/Inscriptions';
 import CreateInscription from './pages/inscriptions/CreateInscription';
+import DeleteInscription from './pages/inscriptions/DeleteInscription';
 
 import Navbar from './components/shared/Navbar';
 
@@ -42,7 +43,7 @@ export default function App() {
             <Route path="/courses/delete/:cid" element={<DeleteCourse />} />
             <Route path="/inscriptions/" element={<Inscriptions />} />
             <Route path="/inscriptions/create" element={<CreateInscription />} />
-            <Route path="/inscriptions/delete/:cid" element={<DeleteCourse />} />
+            <Route path="/inscriptions/delete/:iid" element={<DeleteInscription />} />
           </Routes>
         </div>
         <ToastContainer
