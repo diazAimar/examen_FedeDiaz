@@ -27,9 +27,9 @@ export default function EnrollUserForm({ courses, users }) {
       });
       if (result?.data.error === false) {
         toast.success(result.data.message + ' Navigating to dashboard.');
-        /* setTimeout(() => {
+        setTimeout(() => {
           navigate('/inscriptions');
-        }, 1500); */
+        }, 1500);
       } else if (result?.data.error === true) {
         toast.error(result.data.message);
       }

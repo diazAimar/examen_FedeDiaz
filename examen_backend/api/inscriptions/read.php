@@ -25,6 +25,7 @@ if ($num > 0) {
   while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     extract($row);
     $inscription_item = array(
+      'id' => $id,
       'user_id' => $user_id,
       'user_name' => $user_name,
       'user_surname' => $user_surname,
