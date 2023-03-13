@@ -27,7 +27,6 @@ export default function DeleteCourse() {
   }, []);
 
   const deleteCourse = async () => {
-    console.log('fire delete');
     const result = await apiInstance.delete(
       'http://localhost/examen_backend/api/courses/delete.php',
       {

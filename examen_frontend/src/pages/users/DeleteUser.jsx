@@ -29,7 +29,6 @@ export default function DeleteUser() {
   }, []);
 
   const deleteUser = async () => {
-    console.log('fire delete');
     const result = await apiInstance.delete(
       'http://localhost/examen_backend/api/users/delete.php',
       {
