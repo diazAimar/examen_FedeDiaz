@@ -1,9 +1,4 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-
-import EnrollUserForm from '../components/forms/EnrollUserForm';
-
-import apiInstance from '../instance';
 
 export default function Inscriptions() {
   return (
