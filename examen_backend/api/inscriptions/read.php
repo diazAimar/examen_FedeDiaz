@@ -31,6 +31,7 @@ if ($num > 0) {
       'course_id' => $course_id,
       'course_name' => $course_name,
       'course_legajo' => $course_legajo,
+      'course_modality_id' => $course_modality_id,
     );
     array_push($inscriptions_arr["inscriptions"], $inscription_item);
   }
