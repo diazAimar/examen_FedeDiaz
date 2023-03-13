@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import EnrollUserForm from '../../components/forms/EnrollUserForm';
+import CreateInscriptionForm from '../../components/forms/CreateInscriptionForm';
 
 import apiInstance from '../../instance';
 
@@ -27,7 +27,7 @@ export default function CreateInscription() {
   return (
     <div className="">
       <h2 className="mb-4 text-center">Create Inscription</h2>
-      <EnrollUserForm courses={courses} users={users} />
+      <CreateInscriptionForm courses={courses} users={users} />
     </div>
   );
 }
