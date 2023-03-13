@@ -30,15 +30,18 @@ export default function Inscriptions() {
         ) : inscriptions ? (
           <div className="mt-5">
             <h3>Inscriptions:</h3>
-            <div className="flex flex-col gap-y-8">
+            <div className="">
               {inscriptions.map((inscription) => {
                 return (
-                  <p key={inscription.id} className="text-[1.2rem]">
-                    {inscription.course_name}{' '}
-                    <Link to={`/inscriptions/delete/${inscription.id}`} className="mt-2 inline">
-                      ❌
-                    </Link>
-                  </p>
+                  <div className="flex flex-col mb-4">
+                    <p key={inscription.id} className="text-[1.2rem]">
+                      {inscription.course_name}{' '}
+                      <Link to={`/inscriptions/delete/${inscription.id}`} className="mt-2 inline">
+                        ❌
+                      </Link>
+                    </p>
+                    <p>User: {inscription.user_name} </p>
+                  </div>
                 );
               })}
             </div>
