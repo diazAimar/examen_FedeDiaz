@@ -18,8 +18,8 @@ function validateUserInfo($value, $fieldName)
         }
         break;
       case "dni":
-        if ($value <= 0 || $value > 99999999) {
-          $res["message"] = strtoupper($fieldName) . " must be between 1 and 99999999.";
+        if (strlen($value) != 8) {
+          $res["message"] = strtoupper($fieldName) . " must be between 8 characters long.";
           return $res;
         }
         break;
